@@ -6,4 +6,6 @@ class NewsApis {
   static String LANGUAGE_EN = "en-US";
   static String FALSE = "false";
   static String SORT_BY_POPULARITY = "popularity.desc";
+  static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+  static String BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w500";
 }

@@ -1,3 +1,5 @@
+import 'package:fluttermvvm/utils/newsapis.dart';
+
 class DiscoveryResponse {
   int page;
   int totalResults;
@@ -67,7 +69,7 @@ class Results {
     popularity = json['popularity'];
     voteCount = json['vote_count'];
     video = json['video'];
-    posterPath = json['poster_path'];
+    posterPath = NewsApis.IMAGE_BASE_URL + json['poster_path'];
     id = json['id'];
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
