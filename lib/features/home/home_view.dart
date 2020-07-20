@@ -22,18 +22,10 @@ class _MyHomePageState extends State<HomeScreenView> {
     super.initState();
   }
 
-  /*
-   List.generate(
-                              resultList.length,
-                              (index) => Center(
-                                    child: Text(resultList[index].title),
-                                  )),
-   */
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white70,
+        backgroundColor: Color.fromRGBO(248, 249, 249, 10),
         appBar: AppBar(
           title: Text("widget.title"),
         ),
@@ -70,63 +62,139 @@ class _MyHomePageState extends State<HomeScreenView> {
   }
 
   Widget _listItem(Results results) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      width: double.maxFinite,
-      height: 170,
-      child: Stack(
-        children: [
-          Container(
-            width: double.maxFinite,
-            height: 130,
-            margin: EdgeInsets.only(top: 15),
-            child: Card(),
-          ),
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(),
-                width: 120,
-                margin: EdgeInsets.only(bottom: 27, left: 5),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(3),
-                  child: Image.network(
-                    results.posterPath,
-                    fit: BoxFit.cover,
-                    width: 120,
-                    height: 150,
-                  ),
-                ),
+    return InkWell(
+      child: Container(
+        padding: EdgeInsets.all(5),
+        width: double.maxFinite,
+        height: 220,
+        child: Stack(
+          fit: StackFit.loose,
+          children: [
+            Container(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              margin: EdgeInsets.only(top: 15),
+              child: Card(
+                shadowColor: Colors.blueAccent,
               ),
-              Container(
-                margin: EdgeInsets.only(top: 30, left: 20),
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 0,
-                      child: Text(
-                        results.title,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  flex: 0,
+                  child: Container(
+                    decoration: BoxDecoration(),
+                    width: 140,
+                    margin: EdgeInsets.only(bottom: 10, left: 5),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(3),
+                      child: Image.network(
+                        results.posterPath,
+                        fit: BoxFit.cover,
+                        width: 150,
+                        height: 195,
                       ),
                     ),
-                    //Padding(padding: EdgeInsets.all(3)),
-                    Container(
-                      child: Text(
-                        results.adult ? "Adult" : "Everyone",
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 15,
-                            color: Colors.grey),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              )
-            ],
-          )
-        ],
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(right: 20, bottom: 20),
+                    width: double.maxFinite,
+                    margin: EdgeInsets.only(left: 15, top: 30),
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      textBaseline: TextBaseline.alphabetic,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      children: [
+                        Expanded(
+                            flex: 0,
+                            child: Text(
+                              results.title,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                              softWrap: true,
+                            )),
+                        Padding(padding: EdgeInsets.only(top: 6)),
+                        Expanded(
+                          flex: 0,
+                          child: Text(
+                            results.adult ? "Adult" : "Everyone",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                                color: Colors.grey),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 7),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            "${results.voteCount} Votes",
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                                color: Colors.white),
+                            softWrap: true,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 10),
+                        ),
+                        Expanded(
+                          child: Text(
+                            results.overview,
+                            maxLines: 3,
+                            softWrap: true,
+                            textWidthBasis: TextWidthBasis.longestLine,
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 13,
+                                color: Colors.grey),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              alignment: Alignment.bottomLeft,
+              margin: EdgeInsets.only(left: 123, bottom: 20),
+              child: Container(
+                height: 45,
+                width: 45,
+                alignment: Alignment.center,
+                child: Text(
+                  results.voteAverage.toString(),
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(90),
+                    color: Colors.blue),
+              ),
+            ),
+          ],
+        ),
       ),
+      onTap: () {
+        int movieId = results.id;
+
+        //https://api.themoviedb.org/3/discover/movie?api_key=af6b848dcaa72c47a4267e9d66b045c0&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
+      },
     );
   }
 }
