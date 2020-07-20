@@ -27,7 +27,7 @@ class _MyHomePageState extends State<HomeScreenView> {
     return Scaffold(
         backgroundColor: Color.fromRGBO(248, 249, 249, 10),
         appBar: AppBar(
-          title: Text("widget.title"),
+          title: Text("Flutter MVVM"),
         ),
         body: Center(
           child: StreamBuilder(
