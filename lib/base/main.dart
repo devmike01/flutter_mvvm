@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttermvvm/features/details/details_view.dart';
 import 'package:fluttermvvm/features/home/home_view.dart';
 import 'package:fluttermvvm/utils/injector.dart';
 import 'package:fluttermvvm/utils/repository.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   MyApp() {
     this._repository = Repository();
-    this._injector = Injector(_repository);
+    this._injector = Injector();
   }
 
   @override
@@ -27,9 +28,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeScreenView(_repository),
+      home: MyHomePageState(_repository),
       onGenerateRoute: _injector.injectGenerateRoute,
-      routes: {},
+      //routes: {DetailView.detailRoute: (context) => DetailView()},
     );
   }
 }

@@ -1,25 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttermvvm/features/details/details_view.dart';
 import 'package:fluttermvvm/features/home/home_viewmodel.dart';
 import 'package:fluttermvvm/models/discovery.dart';
 import 'package:fluttermvvm/utils/repository.dart';
 
-class HomeScreenView extends StatefulWidget {
-  final Repository repository;
-
-  HomeScreenView(this.repository);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<HomeScreenView> {
+class MyHomePageState extends StatelessWidget {
   HomeViewModel _homeViewModel;
 
-  @override
-  void initState() {
-    _homeViewModel = HomeViewModel(widget.repository);
-    super.initState();
+  MyHomePageState(Repository repository) {
+    this._homeViewModel = HomeViewModel(repository);
   }
 
   @override
@@ -41,7 +31,7 @@ class _MyHomePageState extends State<HomeScreenView> {
                         List<Results> resultList = discoveryResponse.results;
                         return ListView.builder(
                           itemBuilder: (context, index) =>
-                              _listItem(resultList[index]),
+                              _listItem(resultList[index], context),
                           itemCount: resultList.length,
                         );
                       },
@@ -61,7 +51,7 @@ class _MyHomePageState extends State<HomeScreenView> {
         );
   }
 
-  Widget _listItem(Results results) {
+  Widget _listItem(Results results, BuildContext context) {
     return InkWell(
       child: Container(
         padding: EdgeInsets.all(5),
@@ -191,9 +181,8 @@ class _MyHomePageState extends State<HomeScreenView> {
         ),
       ),
       onTap: () {
-        int movieId = results.id;
-
-        //https://api.themoviedb.org/3/discover/movie?api_key=af6b848dcaa72c47a4267e9d66b045c0&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
+        Navigator.pushNamed(context, DetailView.detailRoute,
+            arguments: results);
       },
     );
   }
