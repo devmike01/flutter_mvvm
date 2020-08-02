@@ -16,72 +16,60 @@ class DetailView extends StatelessWidget {
         title: Text(_movieDetails.originalTitle),
       ),
       body: Container(
-        height: 400,
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
-          child: Container(
-            height: double.maxFinite,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    width: double.maxFinite,
-                    height: 300,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(50)),
-                    child: Image.network(
-                      _movieDetails.posterPath,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: Container(
-                  width: double.maxFinite,
-                  child: Text(
-                    _movieDetails.title,
-                    style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                )),
-                Expanded(
-                    child: Container(
-                  margin: EdgeInsets.only(top: 10, bottom: 20),
-                  width: double.maxFinite,
-                  child: Text(
-                    "${_movieDetails.voteAverage} Votings",
-                    style: TextStyle(
-                        color: Colors.blueAccent,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
-                  ),
-                )),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _titleBodyText(
-                            _movieDetails.voteCount.toString(), "Vote Count"),
-                        _titleBodyText(_movieDetails.releaseDate, "Release"),
-                        _titleBodyText(
-                            _movieDetails.adult ? "18+" : "R", "Rating"),
-                        _titleBodyText(
-                            _movieDetails.originalLanguage, "Language")
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: _titleBodyText("Synopsis", _movieDetails.overview))
-              ],
+        height: double.maxFinite,
+        child: Column(
+          children: [
+            Container(
+              width: double.maxFinite,
+              height: 600,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(50)),
+              child: Image.network(
+                _movieDetails.posterPath,
+                fit: BoxFit.cover,
+                height: 500,
+              ),
             ),
-          ),
+            Expanded(
+                child: Container(
+              width: double.maxFinite,
+              child: Text(
+                _movieDetails.title,
+                style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            )),
+            Expanded(
+                child: Container(
+              margin: EdgeInsets.only(top: 10, bottom: 20),
+              width: double.maxFinite,
+              child: Text(
+                "${_movieDetails.voteAverage} Votings",
+                style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+              ),
+            )),
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _titleBodyText(
+                        _movieDetails.voteCount.toString(), "Vote Count"),
+                    _titleBodyText(_movieDetails.releaseDate, "Release"),
+                    _titleBodyText(_movieDetails.adult ? "18+" : "R", "Rating"),
+                    _titleBodyText(_movieDetails.originalLanguage, "Language")
+                  ],
+                ),
+              ),
+            ),
+            Expanded(child: _titleBodyText("Synopsis", _movieDetails.overview))
+          ],
         ),
       ),
     );
