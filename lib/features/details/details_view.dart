@@ -16,60 +16,86 @@ class DetailView extends StatelessWidget {
         title: Text(_movieDetails.originalTitle),
       ),
       body: Container(
+        width: double.maxFinite,
         height: double.maxFinite,
-        child: Column(
-          children: [
-            Container(
-              width: double.maxFinite,
-              height: 600,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(50)),
-              child: Image.network(
-                _movieDetails.posterPath,
-                fit: BoxFit.cover,
-                height: 500,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  _movieDetails.posterPath,
+                  fit: BoxFit.cover,
+                  width: double.maxFinite,
+                  height: 500,
+                ),
               ),
-            ),
-            Expanded(
-                child: Container(
-              width: double.maxFinite,
-              child: Text(
-                _movieDetails.title,
-                style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-            )),
-            Expanded(
-                child: Container(
-              margin: EdgeInsets.only(top: 10, bottom: 20),
-              width: double.maxFinite,
-              child: Text(
-                "${_movieDetails.voteAverage} Votings",
-                style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-            )),
-            Expanded(
-              child: Container(
+              Container(
+                width: double.maxFinite,
                 padding: EdgeInsets.all(20),
+                child: Text(
+                  _movieDetails.title,
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 20, bottom: 20),
+                width: double.maxFinite,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.star,
+                      size: 30,
+                      color: Colors.orange,
+                    ),
+                    Text(
+                      "${_movieDetails.voteAverage} Voting",
+                      style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 20, bottom: 20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     _titleBodyText(
                         _movieDetails.voteCount.toString(), "Vote Count"),
+                    padding10LeftRight(),
                     _titleBodyText(_movieDetails.releaseDate, "Release"),
+                    padding10LeftRight(),
                     _titleBodyText(_movieDetails.adult ? "18+" : "R", "Rating"),
+                    padding10LeftRight(),
                     _titleBodyText(_movieDetails.originalLanguage, "Language")
                   ],
                 ),
               ),
-            ),
-            Expanded(child: _titleBodyText("Synopsis", _movieDetails.overview))
-          ],
+              Container(
+                padding: EdgeInsets.only(left: 20, bottom: 50),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _getText("Synopsis", true),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 10,
+                      ),
+                      child: _getText(_movieDetails.overview, false),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -77,14 +103,19 @@ class DetailView extends StatelessWidget {
 
   Widget _titleBodyText(String mainText, String subText) {
     return new Column(
-      children: [_getText(subText, true), _getText(subText, false)],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [_getText(mainText, true), _getText(subText, false)],
     );
   }
 
   Widget _getText(String text, bool isBold) => Text(
         text,
+        textAlign: TextAlign.start,
         style: TextStyle(
             fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
             fontSize: 15),
       );
+
+  Widget padding10LeftRight() =>
+      Padding(padding: EdgeInsets.only(left: 10, right: 10));
 }
