@@ -1,5 +1,5 @@
 ### Flutter MVVM
-A simple project which demonstrates how MVVM design principle can be used in flutter app.
+A simple project which implements MVVM architecture in Flutter.
 
 ### Libraries
 - [http](https://pub.dev/packages/http) for networking
