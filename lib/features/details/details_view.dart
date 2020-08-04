@@ -23,7 +23,9 @@ class DetailView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(50),
+                    bottomRight: Radius.circular(50)),
                 child: Image.network(
                   _movieDetails.posterPath,
                   fit: BoxFit.cover,
